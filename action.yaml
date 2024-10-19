@@ -1,0 +1,15 @@
+name: Paleoplay
+description: Run Paleoplay commands as a GitHub Action
+branding:
+  icon: camera
+  color: orange
+inputs:
+  user:
+    description: Steam user to pull screenshots from
+    required: true
+  tinify-api-key:
+    description: Tinify API key for optimising images
+    required: true
+runs:
+  using: docker
+  image: docker://developmentanddinosaurs/paleoplay-github-action:1
