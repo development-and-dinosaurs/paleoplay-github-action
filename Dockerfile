@@ -1,6 +1,23 @@
-FROM pennyvault/playwright-go
+# Stage 1: Modules caching
+FROM golang:1.21 as modules
+COPY go.mod go.sum /modules/
+WORKDIR /modules
+RUN go mod download
 
+# Stage 2: Build
+FROM golang:1.21 as builder
+COPY --from=modules /go/pkg /go/pkg
+COPY . /workdir
+WORKDIR /workdir
+RUN go install github.com/playwright-community/playwright-go/cmd/playwright@latest
 RUN go install github.com/development-and-dinosaurs/paleoplay@v0.0.1
+
+# Stage 3: Final
+FROM ubuntu:jammy
+COPY --from=builder /go/bin/playwright /go/bin/paleoplay /
+RUN apt-get update && apt-get install -y ca-certificates tzdata \
+    && /playwright install --with-deps \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY --chmod=0755 entrypoint.sh /entrypoint.sh
 
