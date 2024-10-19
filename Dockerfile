@@ -1,9 +1,11 @@
 FROM golang:1.23 as builder
-RUN go install github.com/development-and-dinosaurs/paleoplay@v0.0.1
+RUN go install github.com/playwright-community/playwright-go/cmd/playwright@v0.4702.0
+RUN go install github.com/development-and-dinosaurs/paleoplay@v0.0.2
 
-FROM mcr.microsoft.com/playwright:v1.47.2-noble
-COPY --from=builder /go/bin/paleoplay /
+FROM ubuntu:noble
+COPY --from=builder /go/bin/playwright /go/bin/paleoplay /
 RUN apt-get update && apt-get install -y ca-certificates tzdata \
+    && /playwright install chromium --with-deps \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --chmod=0755 entrypoint.sh /entrypoint.sh
