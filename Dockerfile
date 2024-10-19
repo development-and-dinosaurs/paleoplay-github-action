@@ -1,14 +1,4 @@
-# Stage 1: Modules caching
-FROM golang:1.21 as modules
-COPY go.mod go.sum /modules/
-WORKDIR /modules
-RUN go mod download
-
-# Stage 2: Build
 FROM golang:1.21 as builder
-COPY --from=modules /go/pkg /go/pkg
-COPY . /workdir
-WORKDIR /workdir
 RUN go install github.com/playwright-community/playwright-go/cmd/playwright@latest
 RUN go install github.com/development-and-dinosaurs/paleoplay@v0.0.1
 
