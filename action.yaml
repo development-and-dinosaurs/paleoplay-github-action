@@ -7,7 +7,7 @@ inputs:
   user:
     description: Steam user to pull screenshots from
     required: true
-  tinify-api-key:
+  tinify_api_key:
     description: Tinify API key for optimising images
     required: true
 runs:
