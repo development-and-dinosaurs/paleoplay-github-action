@@ -1,5 +1,5 @@
 FROM golang:1.23 as builder
-RUN go install github.com/playwright-community/playwright-go/cmd/playwright@latest
+RUN go install github.com/playwright-community/playwright-go/cmd/playwright@v0.4702.0
 RUN go install github.com/development-and-dinosaurs/paleoplay@v0.0.1
 
 FROM ubuntu:jammy
