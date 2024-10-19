@@ -1,4 +1,4 @@
 #!/bin/bash
 
-echo "Running Paleoplay for ${USER}"
-paleoplay --user ${USER} --tinify-api-key ${TINIFY_API_KEY}
+echo "Running Paleoplay for ${INPUT_USER}"
+paleoplay --user ${INPUT__USER} --tinify-api-key ${INPUT_TINIFY_API_KEY}
