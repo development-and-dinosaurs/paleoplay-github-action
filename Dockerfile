@@ -1,6 +1,6 @@
 FROM golang:1.23 as builder
 RUN go install github.com/playwright-community/playwright-go/cmd/playwright@v0.4702.0
-RUN go install github.com/development-and-dinosaurs/paleoplay@v0.0.4
+RUN go install github.com/development-and-dinosaurs/paleoplay@v0.0.5
 
 FROM ubuntu:noble
 COPY --from=builder /go/bin/playwright /go/bin/paleoplay /
